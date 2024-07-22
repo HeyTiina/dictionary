@@ -9,9 +9,19 @@ export default function Meaning(props) {
       {props.meaning.definitions.slice(0, 3).map(function (definition, index) {
         return (
           <div key={index}>
-            <div className="definition">Definition: {definition.definition}</div>
+            <div className="definition">
+              <strong>Definition:</strong> {definition.definition}
+            </div>
 
-            <div className="example">{definition.example}</div>
+            {definition.example && (
+              <div className="example">
+                {definition.example.split("\n").map((example, i) => (
+                  <div key={i}>
+                    <strong>Examples:</strong> {example}
+                  </div>
+                ))}
+              </div>
+            )}
 
             <Synonyms synonyms={definition.synonyms} />
           </div>
