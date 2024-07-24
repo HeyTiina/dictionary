@@ -7,10 +7,11 @@
   margin: 30px 0;
 }
 
-.App-logo {
-  max-width: 200px;
-  display: block;
-  margin: 0 auto;
+.tittle {
+  text-align: center;
+  font-size: 80px;
+  padding-top: 2%;
+  color: #BC6C25;
 }
 
 .App-footer {

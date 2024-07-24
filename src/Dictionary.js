@@ -9,6 +9,7 @@ export default function Dictionary(props) {
   let [results, setResults] = useState(null);
   let [loaded, setLoaded] = useState(false);
   let [photos, setPhotos] = useState(null);
+  let [error, setError] = useState(null);
 
   function handleDictionResponse(response) {
     setResults(response.data[0]);
@@ -18,16 +19,33 @@ export default function Dictionary(props) {
     setPhotos(response.data.photos);
   }
 
+  function handleError(error) {
+    if (error.response.status === 404) {
+      setError(
+        "We couldn't find that word, but don't be discouraged! Try again!"
+      );
+    } else {
+      setError("Ocurrió un error inesperado");
+    }
+  }
+
   function search() {
+    setError(null); // Establece el estado error en null
+    setResults(null); // Establece el estado results en null
+    setPhotos(null); // Establece el estado photos en null
+
     // documentation: https://dictionaryapi.dev/e
     let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en_US/${keyword}`;
-    axios.get(apiUrl).then(handleDictionResponse);
+    axios.get(apiUrl).then(handleDictionResponse).catch(handleError);
 
     let pexelsApiKey =
       "563492ad6f91700001000001fdd29f0808df42bd90c33f42e128fa89";
     let pexelsApiUrl = `https://api.pexels.com/v1/search?query=${keyword}&per_page=9`;
     let headers = { Authorization: `${pexelsApiKey}` };
-    axios.get(pexelsApiUrl, { headers: headers }).then(handlePexelsResponse);
+    axios
+      .get(pexelsApiUrl, { headers: headers })
+      .then(handlePexelsResponse)
+      .catch(handleError);
   }
 
   function handleSubmit(event) {
@@ -59,9 +77,10 @@ export default function Dictionary(props) {
           <div className="hint">
             Suggested words: color, juice, jump, fire...
           </div>
+          {error && <div className="error">{error}</div>}
         </section>
-        <Results results={results} />
-        <Photos photos={photos} />
+        {results && <Results results={results} />}
+        {photos && <Photos photos={photos} />}
       </div>
     );
   } else {
