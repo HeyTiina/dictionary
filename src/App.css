@@ -7,14 +7,18 @@
   margin: 30px 0;
 }
 
-.tittle {
+.title {
   text-align: center;
   font-size: 80px;
   padding-top: 2%;
   color: #BC6C25;
 }
 
-.App-footer {
+.App Footer {
   text-align: center;
-  margin: 30px 0;
+  margin-top: 40px ;
+}
+
+.App Footer a {
+  color: #BC6C25;
 }
