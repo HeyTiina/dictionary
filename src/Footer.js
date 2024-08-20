@@ -3,7 +3,7 @@ import React from "react";
 export default function Footer() {
   return (
     <footer>
-      <p>
+      <div className="p-4">
         This project was coded by{" "}
         <a href="https://github.com/HeyTiina" target="_blank" rel="noreferrer">
           Valentina Bastidas C.
@@ -20,7 +20,7 @@ export default function Footer() {
         <a href="https://www.netlify.com/" target="_blank" rel="noreferrer">
           hosted on Netlify
         </a>
-      </p>
+      </div>
     </footer>
   );
 }
